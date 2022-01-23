@@ -1,13 +1,21 @@
 package mz.gov.misau.mpc.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "fonte_recurso")
@@ -23,6 +31,20 @@ public class FonteRecurso implements Serializable {
 	
 	private String abreviatura;
 
+	@Temporal(TemporalType.DATE)
+	private Date dataRegisto;
+	
+	@OneToMany(mappedBy ="fonterecurso",orphanRemoval = true,cascade = CascadeType.ALL,fetch = FetchType.LAZY )
+	private List<PlanoServico> planoservicos=new ArrayList<PlanoServico>();
+	
+	public Date getDataRegisto() {
+		return dataRegisto;
+	}
+
+	public void setDataRegisto(Date dataRegisto) {
+		this.dataRegisto = dataRegisto;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -37,6 +59,15 @@ public class FonteRecurso implements Serializable {
 
 	public void setAbreviatura(String abreviatura) {
 		this.abreviatura = abreviatura;
+	}
+
+	
+	public List<PlanoServico> getPlanoservicos() {
+		return planoservicos;
+	}
+
+	public void setPlanoservicos(List<PlanoServico> planoservicos) {
+		this.planoservicos = planoservicos;
 	}
 
 	@Override

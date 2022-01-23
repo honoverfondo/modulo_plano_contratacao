@@ -2,50 +2,46 @@ package mz.gov.misau.mpc.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType; 
 
 @Entity
-@Table(name = "provincia")
-@SequenceGenerator(name = "seq_provincia", sequenceName = "seq_provincia", allocationSize = 1, initialValue = 1)
-public class Provincia implements Serializable {
-
+@Table(name = "postoAdmin")
+@SequenceGenerator(name = "seq_posto_admin",sequenceName = "seq_posto_admin",allocationSize = 1,initialValue = 1)
+public class PostoAdministratitvo implements Serializable{
+	
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_provincia")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "seq_posto_admin")
 	private Long id;
-
+	
+	@Column(nullable = false)
 	private String nome;
-
-	private String abrevProvincia;
-
-	@Temporal(TemporalType.DATE)
-	private Date dataResgisto;
-
-	@OneToMany(mappedBy = "provincia",orphanRemoval = true,cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-	private List<Distrito>distritos=new ArrayList<Distrito>();
+	
+	@OneToMany(mappedBy = "postoAdministrativo",orphanRemoval = true,cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	private List<Bairro>bairros=new ArrayList<Bairro>();
 	
 	
-	public List<Distrito> getDistritos() {
-		return distritos;
-	}
+	@ManyToOne(targetEntity = Distrito.class)
+	@JoinColumn(name = "distrito_id",nullable = false,foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT,name = "distrito_fk"))
+	private Distrito distrito;
 
-	public void setDistritos(List<Distrito> distritos) {
-		this.distritos = distritos;
-	}
+	
 
 	public Long getId() {
 		return id;
@@ -63,20 +59,12 @@ public class Provincia implements Serializable {
 		this.nome = nome;
 	}
 
-	public String getAbrevProvincia() {
-		return abrevProvincia;
+	public Distrito getDistrito() {
+		return distrito;
 	}
 
-	public void setAbrevProvincia(String abrevProvincia) {
-		this.abrevProvincia = abrevProvincia;
-	}
-
-	public Date getDataResgisto() {
-		return dataResgisto;
-	}
-
-	public void setDataResgisto(Date dataResgisto) {
-		this.dataResgisto = dataResgisto;
+	public void setDistrito(Distrito distrito) {
+		this.distrito = distrito;
 	}
 
 	@Override
@@ -95,7 +83,7 @@ public class Provincia implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Provincia other = (Provincia) obj;
+		PostoAdministratitvo other = (PostoAdministratitvo) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -103,5 +91,7 @@ public class Provincia implements Serializable {
 			return false;
 		return true;
 	}
+	
+	
 
 }

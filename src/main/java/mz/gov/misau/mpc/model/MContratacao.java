@@ -2,6 +2,7 @@ package mz.gov.misau.mpc.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -14,25 +15,28 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "tipo")
-@SequenceGenerator(name = "seq_tipo",sequenceName = "seq_tipo",allocationSize = 1,initialValue = 1)
-public class Tipo implements Serializable{
-
+@Table(name = "mContratacao")
+@SequenceGenerator(name = "seq_mcontratacao", sequenceName = "seq_mcontratacao", allocationSize = 1, initialValue = 1)
+public class MContratacao implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "seq_tipo")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "seq_mcontratacao")
 	private Long id;
 	
 	@Column(nullable = false)
-	private String nomeTipo;
+	private String descricao;
 	
-	@OneToMany(mappedBy = "tipo",orphanRemoval =true,cascade = CascadeType.ALL,fetch = FetchType.LAZY )
-	private List<PlanoServico> planoservicos=new ArrayList<PlanoServico>();
+	@Temporal(TemporalType.DATE)
+	private Date dataRegisto;
 	
+	@OneToMany(mappedBy = "mcontratacao",orphanRemoval = true,cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	private List<PlanoServico>planoservicos=new ArrayList<PlanoServico>();
 
 	public Long getId() {
 		return id;
@@ -42,15 +46,22 @@ public class Tipo implements Serializable{
 		this.id = id;
 	}
 
-	public String getNomeTipo() {
-		return nomeTipo;
+	public String getDescricao() {
+		return descricao;
 	}
 
-	public void setNomeTipo(String nomeTipo) {
-		this.nomeTipo = nomeTipo;
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
-	
+	public Date getDataRegisto() {
+		return dataRegisto;
+	}
+
+	public void setDataRegisto(Date dataRegisto) {
+		this.dataRegisto = dataRegisto;
+	}
+
 	
 	public List<PlanoServico> getPlanoservicos() {
 		return planoservicos;
@@ -76,7 +87,7 @@ public class Tipo implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Tipo other = (Tipo) obj;
+		MContratacao other = (MContratacao) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -85,5 +96,5 @@ public class Tipo implements Serializable{
 		return true;
 	}
 	
-
+	
 }
