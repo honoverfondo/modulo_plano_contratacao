@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -28,6 +29,7 @@ public class Provincia implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_provincia")
 	private Long id;
 
+	@Column(nullable = false)
 	private String nome;
 
 	private String abrevProvincia;

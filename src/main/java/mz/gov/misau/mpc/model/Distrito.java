@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -30,8 +31,10 @@ public class Distrito  implements Serializable{
 	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "seq_distrito")
 	private Long id;
 	
+	@Column(nullable = false)
 	private String nome;
 	
+	@Column(nullable = false)
 	private String abrevDistrito;
 	
 	private Date dataRegisto;

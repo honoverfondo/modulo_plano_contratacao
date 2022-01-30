@@ -33,6 +33,7 @@ public class Instituicao implements Serializable {
 	@Column(nullable = false)
 	private String nome;
 
+	
 	private String abrevInstituicao;
 
 	@Column(nullable = false)

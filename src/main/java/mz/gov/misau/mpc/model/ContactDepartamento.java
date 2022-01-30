@@ -2,6 +2,7 @@ package mz.gov.misau.mpc.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
@@ -25,7 +26,7 @@ public class ContactDepartamento implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "seq_contactDepartamento")
 	private Long id;
 	
-	
+	@Column(nullable = false)
 	private String numContacto;
 	
 	@ManyToOne(targetEntity = Departamento.class)
